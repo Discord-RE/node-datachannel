@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 cmake_policy(SET CMP0091 NEW)
 cmake_policy(SET CMP0042 NEW)
 
-project(node_datachannel VERSION 0.31.0)
+project(node_datachannel VERSION 0.32.0)
 
 # compile_commands.json
 # -----------------------------------
@@ -127,6 +127,11 @@ if(WIN32)
 endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${LINK_LIBRARIES})
+
+if(UNIX AND NOT APPLE)
+    target_compile_options(${PROJECT_NAME} PRIVATE -fvisibility=hidden -fvisibility-inlines-hidden)
+    target_link_options(${PROJECT_NAME} PRIVATE -Wl,--exclude-libs,ALL)
+endif()
 
 if(MSVC AND CMAKE_JS_NODELIB_DEF AND CMAKE_JS_NODELIB_TARGET)
   # Generate node.lib
