@@ -18,6 +18,7 @@ public:
 
   // Functions
   void addToChain(const Napi::CallbackInfo &info);
+  void setBitrate(const Napi::CallbackInfo &info);
 
   // Callbacks
 
