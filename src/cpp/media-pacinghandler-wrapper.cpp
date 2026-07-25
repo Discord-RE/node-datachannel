@@ -12,6 +12,7 @@ Napi::Object PacingHandlerWrapper::Init(Napi::Env env, Napi::Object exports)
     {
       // Instance Methods
       InstanceMethod("addToChain", &PacingHandlerWrapper::addToChain),
+      InstanceMethod("setBitrate", &PacingHandlerWrapper::setBitrate),
     });
 
   // If this is not the first call, we don't want to reassign the constructor (hot-reload problem)
@@ -76,4 +77,21 @@ void PacingHandlerWrapper::addToChain(const Napi::CallbackInfo &info)
     return;
   }
   mHandlerPtr->addToChain(mediaHandler);
+}
+
+void PacingHandlerWrapper::setBitrate(const Napi::CallbackInfo &info)
+{
+  auto env = info.Env();
+  if (info.Length() < 1 || !info[0].IsNumber())
+  {
+    Napi::TypeError::New(env, "Expected a number").ThrowAsJavaScriptException();
+    return;
+  }
+  auto bitrate = info[0].As<Napi::Number>().DoubleValue();
+  if (bitrate <= 0)
+  {
+    Napi::RangeError::New(env, "Bitrate must be positive").ThrowAsJavaScriptException();
+    return;
+  }
+  mHandlerPtr->setBitrate(bitrate);
 }

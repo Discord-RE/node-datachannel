@@ -206,6 +206,7 @@ export interface PacingHandler extends MediaHandler {}
 
 export const PacingHandler: {
   new (bitsPerSecond: number, sendInterval: number): PacingHandler;
+  setBitrate(bitsPerSecond: number): void;
 } = nodeDataChannel.PacingHandler;
 
 export interface RtcpReceivingSession extends MediaHandler {}
