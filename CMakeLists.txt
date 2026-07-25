@@ -69,6 +69,8 @@ if(NOT NO_MEDIA)
         src/cpp/media-h26xseparator.cpp
         src/cpp/media-h264rtppacketizer-wrapper.cpp
         src/cpp/media-h265rtppacketizer-wrapper.cpp
+        src/cpp/media-vp8rtppacketizer-wrapper.cpp
+        src/cpp/media-vp9rtppacketizer-wrapper.cpp
         src/cpp/media-mediahandler-helper.cpp
         src/cpp/media-pacinghandler-wrapper.cpp
         src/cpp/media-rtcpnackresponder-wrapper.cpp
