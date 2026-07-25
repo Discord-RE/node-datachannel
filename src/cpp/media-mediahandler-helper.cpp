@@ -2,6 +2,8 @@
 #include "media-av1rtppacketizer-wrapper.h"
 #include "media-h264rtppacketizer-wrapper.h"
 #include "media-h265rtppacketizer-wrapper.h"
+#include "media-vp8rtppacketizer-wrapper.h"
+#include "media-vp9rtppacketizer-wrapper.h"
 #include "media-pacinghandler-wrapper.h"
 #include "media-rtcpnackresponder-wrapper.h"
 #include "media-rtcpreceivingsession-wrapper.h"
@@ -17,6 +19,10 @@ std::shared_ptr<rtc::MediaHandler> asMediaHandler(const Napi::Object &val)
     mediaHandler = H264RtpPacketizerWrapper::Unwrap(val)->getPacketizerInstance();
   else if (val.InstanceOf(H265RtpPacketizerWrapper::constructor.Value()))
     mediaHandler = H265RtpPacketizerWrapper::Unwrap(val)->getPacketizerInstance();
+  else if (val.InstanceOf(VP8RtpPacketizerWrapper::constructor.Value()))
+    mediaHandler = VP8RtpPacketizerWrapper::Unwrap(val)->getPacketizerInstance();
+  else if (val.InstanceOf(VP9RtpPacketizerWrapper::constructor.Value()))
+    mediaHandler = VP9RtpPacketizerWrapper::Unwrap(val)->getPacketizerInstance();
   else if (val.InstanceOf(PacingHandlerWrapper::constructor.Value()))
     mediaHandler = PacingHandlerWrapper::Unwrap(val)->getHandlerInstance();
   else if (val.InstanceOf(RtcpNackResponderWrapper::constructor.Value()))

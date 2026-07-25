@@ -248,6 +248,18 @@ export const H265RtpPacketizer: {
   new (separator: NalUnitSeparator, rtpConfig: RtpPacketizationConfig, maxFragmentSize?: number): H265RtpPacketizer
 } = nodeDataChannel.H265RtpPacketizer
 
+export interface VP8RtpPacketizer extends RtpPacketizer {}
+
+export const VP8RtpPacketizer: {
+  new (rtpConfig: RtpPacketizationConfig, maxFragmentSize?: number): VP8RtpPacketizer
+} = nodeDataChannel.VP8RtpPacketizer
+
+export interface VP9RtpPacketizer extends RtpPacketizer {}
+
+export const VP9RtpPacketizer: {
+  new (rtpConfig: RtpPacketizationConfig, maxFragmentSize?: number): VP9RtpPacketizer
+} = nodeDataChannel.VP9RtpPacketizer
+
 export interface AV1RtpPacketizer extends RtpPacketizer {}
 
 export const AV1RtpPacketizer: {
