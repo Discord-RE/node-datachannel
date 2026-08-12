@@ -37,7 +37,18 @@ jobs:
         run: npm run test
         env:
           CI: true
-      - name: Upload
-        run: node_modules/.bin/prebuild -r napi --upload -u ${{ secrets.GITHUB_TOKEN }}
-        env:
-          CI: true
+      - name: Copy prebuild
+        run: >
+          node_modules/.bin/pkg-prebuilds-copy
+          --baseDir build/Release
+          --source node_datachannel.node
+          --name=node_datachannel
+          --strip
+          --napi_version=8
+          --arch=x64
+      - name: Upload prebuilds
+        uses: actions/upload-artifact@v4
+        with:
+          name: prebuilds-mac-x64
+          path: prebuilds
+          retention-days: 7

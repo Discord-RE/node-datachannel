@@ -65,11 +65,26 @@ jobs:
 
       - name: Build
         run: |
-          npx prebuild -r napi --arch ${{ matrix.arch }} --backend cmake-js -- --CDCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake" --CDVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+          npx cmake-js configure --CDCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake" --CDVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+          npx cmake-js build
+        shell: cmd
+        env:
+          npm_config_build_from_source: 'true'
+
+      - name: Copy prebuild
+        run: >
+          npx pkg-prebuilds-copy
+          --baseDir build/Release
+          --source node_datachannel.node
+          --name=node_datachannel
+          --strip
+          --napi_version=8
+          --arch=${{ matrix.arch }}
         shell: cmd
 
-      - name: Upload
-        run: npx prebuild --backend cmake-js --arch ${{ matrix.arch }} -r napi --upload -u ${{ secrets.GITHUB_TOKEN }}
-        env:
-          CI: true
-        shell: cmd
+      - name: Upload prebuilds
+        uses: actions/upload-artifact@v4
+        with:
+          name: prebuilds-win-${{ matrix.arch }}
+          path: prebuilds
+          retention-days: 7

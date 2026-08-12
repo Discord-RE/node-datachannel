@@ -16,6 +16,18 @@ This project is Node.js bindings for [libdatachannel](https://github.com/paullou
 npm install node-datachannel
 ```
 
+On install, the package first checks for a prebuilt binary matching your
+platform/architecture (shipped inside the package under `prebuilds/`). If no
+matching prebuild is found, it falls back to building from source using
+`cmake-js`, which requires the build dependencies listed in
+[BULDING.md](./BULDING.md).
+
+To force a build from source, set `npm_config_build_from_source=true`:
+
+```sh
+npm install node-datachannel --build-from-source
+```
+
 ## Supported Platforms
 
 `node-datachannel` targets N-API version 8 and supports Node.js v18.20 and above. It is tested on Linux, Windows and MacOS. For N-API compatibility please check [here](https://nodejs.org/api/n-api.html#n_api_n_api_version_matrix).

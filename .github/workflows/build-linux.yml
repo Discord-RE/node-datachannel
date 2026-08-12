@@ -111,11 +111,13 @@ jobs:
             -e GCC=${{ matrix.gcc }} \
             -e GXX=${{ matrix.gxx }} \
             -e CI=true \
+            -e npm_config_build_from_source=true \
             -v ${{ github.workspace }}:/usr/app \
             --platform linux/${{ matrix.arch }} \
             -w /usr/app \
             ndc-buildroot:${{ matrix.platform }}-${{ matrix.arch }} \
-            node_modules/.bin/prebuild --arch ${{ matrix.node_arch }} -r napi --backend cmake-js -- --CDCMAKE_TOOLCHAIN_FILE:FILEPATH=./cmake/toolchain/ci.cmake
+            node_modules/.bin/cmake-js configure --CDCMAKE_TOOLCHAIN_FILE:FILEPATH=./cmake/toolchain/ci.cmake && \
+            node_modules/.bin/cmake-js build
 
       - name: Test
         run: >
@@ -126,8 +128,20 @@ jobs:
           -t ndc-buildroot:${{ matrix.platform }}-${{ matrix.arch }}
           npm run test
 
-      - name: Upload
-        run: sudo --preserve-env=CI,LIBC node_modules/.bin/prebuild --arch ${{ matrix.node_arch }} -r napi --upload -u ${{ secrets.GITHUB_TOKEN }}
-        env:
-          LIBC: ${{ matrix.libc }}
-          CI: true
+      - name: Copy prebuild
+        run: >
+          sudo --preserve-env=CI,LIBC node_modules/.bin/pkg-prebuilds-copy
+          --baseDir build/Release
+          --source node_datachannel.node
+          --name=node_datachannel
+          --strip
+          --napi_version=8
+          --arch=${{ matrix.node_arch }}
+          ${{ matrix.libc && format('--libc={0}', matrix.libc) || '' }}
+
+      - name: Upload prebuilds
+        uses: actions/upload-artifact@v4
+        with:
+          name: prebuilds-linux-${{ matrix.node_arch }}-${{ matrix.libc }}
+          path: prebuilds
+          retention-days: 7
