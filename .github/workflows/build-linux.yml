@@ -116,8 +116,7 @@ jobs:
             --platform linux/${{ matrix.arch }} \
             -w /usr/app \
             ndc-buildroot:${{ matrix.platform }}-${{ matrix.arch }} \
-            node_modules/.bin/cmake-js configure --CDCMAKE_TOOLCHAIN_FILE:FILEPATH=./cmake/toolchain/ci.cmake && \
-            node_modules/.bin/cmake-js build
+            sh -c 'npx cmake-js configure --CDCMAKE_TOOLCHAIN_FILE:FILEPATH=./cmake/toolchain/ci.cmake && npx cmake-js build'
 
       - name: Test
         run: >
