@@ -63,9 +63,15 @@ jobs:
           npm install --ignore-scripts
         shell: cmd
 
-      - name: Build
+      - name: Configure
         run: |
           npx cmake-js configure --CDCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake" --CDVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+        shell: cmd
+        env:
+          npm_config_build_from_source: 'true'
+
+      - name: Build
+        run: |
           npx cmake-js build
         shell: cmd
         env:
