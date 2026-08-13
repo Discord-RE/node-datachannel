@@ -21,10 +21,11 @@ export default [
         preventAssignment: true,
         // `binding-options.js` is a CommonJS module that rollup inlines, so the
         // `require('../../binding-options')` call does not need rewriting.
-        // `PACKAGE_ROOT` is the basePath passed to `pkg-prebuilds`' loadBinding.
+        // `process.env.PACKAGE_ROOT` is the basePath passed to
+        // `pkg-prebuilds`' loadBinding.
         // From `src/lib/` the package root is two levels up, but the bundled
         // output lives in `dist/<format>/lib/` which is three levels up.
-        PACKAGE_ROOT: "__dirname + '/../../../'",
+        'process.env.PACKAGE_ROOT': "__dirname + '/../../../'",
       }),
       esmShim(),
       esbuild(),
