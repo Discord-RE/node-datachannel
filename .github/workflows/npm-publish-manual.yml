@@ -82,4 +82,4 @@ jobs:
 
       - name: Publish
         run: |
-          npm publish --provenance --access public
+          npm publish --provenance --access public --tag beta
