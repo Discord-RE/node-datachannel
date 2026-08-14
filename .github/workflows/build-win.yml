@@ -61,14 +61,14 @@ jobs:
 
       - name: Configure
         run: |
-          npx cmake-js configure --CDCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake" --CDVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }}
+          npx cmake-js configure --CDCMAKE_TOOLCHAIN_FILE="C:\vcpkg\scripts\buildsystems\vcpkg.cmake" --CDVCPKG_TARGET_TRIPLET=${{ matrix.vcpkg_triplet }} -a ${{ matrix.arch }}
         shell: cmd
         env:
           npm_config_build_from_source: 'true'
 
       - name: Build
         run: |
-          npx cmake-js build
+          npx cmake-js build -a ${{ matrix.arch }}
         shell: cmd
         env:
           npm_config_build_from_source: 'true'
