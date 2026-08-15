@@ -72,7 +72,7 @@ jobs:
       - name: Assemble prebuilds
         run: |
           mkdir -p prebuilds
-          find tmp -type f -exec sh -c 'for f; do rel="${f#tmp/}"; mkdir -p "prebuilds/$(dirname "$rel")"; cp "$f" "prebuilds/$rel"; done' _ {} +
+          find tmp -type f -exec sh -c 'for f; do rel="${f#tmp/}"; rel="${rel#*/}"; mkdir -p "prebuilds/$(dirname "$rel")"; cp "$f" "prebuilds/$rel"; done' _ {} +
           find prebuilds -type f
 
       - name: Build TypeScript
