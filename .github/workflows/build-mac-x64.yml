@@ -17,7 +17,7 @@ jobs:
     runs-on: macos-15-intel
     strategy:
       matrix:
-        node-version: [18]
+        node-version: [24]
 
     steps:
       - uses: actions/checkout@v4
