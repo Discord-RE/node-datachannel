@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         node-version: [24]
-        arch: [amd64, arm64, arm]
+        arch: [amd64, arm64]
         platform: [debian, alpine]
         include:
           # Platform-specific baselines
@@ -42,11 +42,6 @@ jobs:
             triple_arch: aarch64
             node_arch: arm64
             flags: -march=armv8-a -fPIC
-          - arch: arm
-            triple_arch: armv7
-            node_arch: arm
-            triple_postfix: eabihf
-            flags: -march=armv7-a -mfpu=neon-vfpv4 -mfloat-abi=hard -fPIC
 
           # Platform + Arch overrides (needed for proper toolchain)
           - arch: amd64
@@ -59,12 +54,6 @@ jobs:
             gcc_install: gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
             gcc: aarch64-linux-gnu-gcc
             gxx: aarch64-linux-gnu-g++
-          - arch: arm
-            platform: debian
-            triple_arch: arm
-            gcc_install: gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-            gcc: arm-linux-gnueabihf-gcc
-            gxx: arm-linux-gnueabihf-g++
 
     steps:
       - uses: actions/checkout@v4
