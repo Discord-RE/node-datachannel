@@ -202,11 +202,12 @@ export interface MediaHandler {
   addToChain(handler: MediaHandler): void
 }
 
-export interface PacingHandler extends MediaHandler {}
+export interface PacingHandler extends MediaHandler {
+  setBitrate(bitsPerSecond: number): void;
+}
 
 export const PacingHandler: {
   new (bitsPerSecond: number, sendInterval: number): PacingHandler;
-  setBitrate(bitsPerSecond: number): void;
 } = nodeDataChannel.PacingHandler;
 
 export interface RtcpReceivingSession extends MediaHandler {}
