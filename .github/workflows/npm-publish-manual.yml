@@ -70,7 +70,7 @@ jobs:
             if [ -d "$dir" ]; then
               echo "Publishing platform package from $dir..."
               cd "$dir"
-              npm publish --provenance --access public || echo "Package in $dir already published or warning"
+              npm publish --tag latest --provenance --access public || echo "Package in $dir already published or warning"
               cd - > /dev/null
             fi
           done
@@ -81,6 +81,6 @@ jobs:
         run: |
           npm install --ignore-scripts
           npm run build:tsc
-          npm publish --provenance --access public || echo "Root package already published"
+          npm publish --tag latest --provenance --access public || echo "Root package already published"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
