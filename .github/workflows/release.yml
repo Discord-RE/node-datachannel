@@ -3,6 +3,11 @@ name: Release & Publish
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+  id-token: write
+
 jobs:
   build-linux:
     name: Linux (${{ matrix.platform }}-${{ matrix.node_arch }})
