@@ -1,4 +1,5 @@
 build
+npm-artifacts
 prebuilds
 node_modules
 .vscode
