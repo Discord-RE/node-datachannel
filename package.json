@@ -1,6 +1,6 @@
 {
   "name": "@lng2004/node-datachannel",
-  "version": "0.33.2-20260818.1",
+  "version": "0.33.2-20260825",
   "description": "WebRTC For Node.js and Electron. libdatachannel node bindings.",
   "main": "./dist/cjs/lib/index.cjs",
   "module": "./dist/esm/lib/index.mjs",
@@ -118,14 +118,14 @@
     "detect-libc": "^2.0.4"
   },
   "optionalDependencies": {
-    "@lng2004/ndc-android-arm64": "0.33.2-20260818.1",
-    "@lng2004/ndc-darwin-arm64": "0.33.2-20260818.1",
-    "@lng2004/ndc-darwin-x64": "0.33.2-20260818.1",
-    "@lng2004/ndc-linux-arm64-gnu": "0.33.2-20260818.1",
-    "@lng2004/ndc-linux-arm64-musl": "0.33.2-20260818.1",
-    "@lng2004/ndc-linux-x64-gnu": "0.33.2-20260818.1",
-    "@lng2004/ndc-linux-x64-musl": "0.33.2-20260818.1",
-    "@lng2004/ndc-win32-arm64-msvc": "0.33.2-20260818.1",
-    "@lng2004/ndc-win32-x64-msvc": "0.33.2-20260818.1"
+    "@lng2004/ndc-android-arm64": "0.33.2-20260825",
+    "@lng2004/ndc-darwin-arm64": "0.33.2-20260825",
+    "@lng2004/ndc-darwin-x64": "0.33.2-20260825",
+    "@lng2004/ndc-linux-arm64-gnu": "0.33.2-20260825",
+    "@lng2004/ndc-linux-arm64-musl": "0.33.2-20260825",
+    "@lng2004/ndc-linux-x64-gnu": "0.33.2-20260825",
+    "@lng2004/ndc-linux-x64-musl": "0.33.2-20260825",
+    "@lng2004/ndc-win32-arm64-msvc": "0.33.2-20260825",
+    "@lng2004/ndc-win32-x64-msvc": "0.33.2-20260825"
   }
 }
