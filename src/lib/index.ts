@@ -287,6 +287,8 @@ export default {
   RtpPacketizer,
   H264RtpPacketizer,
   H265RtpPacketizer,
+  VP8RtpPacketizer,
+  VP9RtpPacketizer,
   AV1RtpPacketizer,
   Track,
   Video,
