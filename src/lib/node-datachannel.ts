@@ -7,20 +7,20 @@ function getPackageName(): string | null {
   if (platform === 'linux') {
     const libc = familySync();
     if (libc === MUSL) {
-      if (arch === 'x64') return '@node-datachannel/linux-x64-musl';
-      if (arch === 'arm64') return '@node-datachannel/linux-arm64-musl';
+      if (arch === 'x64') return '@lng2004/ndc-linux-x64-musl';
+      if (arch === 'arm64') return '@lng2004/ndc-linux-arm64-musl';
     } else {
-      if (arch === 'x64') return '@node-datachannel/linux-x64-gnu';
-      if (arch === 'arm64') return '@node-datachannel/linux-arm64-gnu';
+      if (arch === 'x64') return '@lng2004/ndc-linux-x64-gnu';
+      if (arch === 'arm64') return '@lng2004/ndc-linux-arm64-gnu';
     }
   } else if (platform === 'darwin') {
-    if (arch === 'arm64') return '@node-datachannel/darwin-arm64';
-    if (arch === 'x64') return '@node-datachannel/darwin-x64';
+    if (arch === 'arm64') return '@lng2004/ndc-darwin-arm64';
+    if (arch === 'x64') return '@lng2004/ndc-darwin-x64';
   } else if (platform === 'win32') {
-    if (arch === 'x64') return '@node-datachannel/win32-x64-msvc';
-    if (arch === 'arm64') return '@node-datachannel/win32-arm64-msvc';
+    if (arch === 'x64') return '@lng2004/ndc-win32-x64-msvc';
+    if (arch === 'arm64') return '@lng2004/ndc-win32-arm64-msvc';
   } else if (platform === 'android') {
-    if (arch === 'arm64') return '@node-datachannel/android-arm64';
+    if (arch === 'arm64') return '@lng2004/ndc-android-arm64';
   }
   return null;
 }
