@@ -47,6 +47,8 @@ export interface Audio {
   removeFormat(fmt: string): void;
   addSSRC(ssrc: number, name?: string, msid?: string, trackID?: string): void;
   removeSSRC(ssrc: number): void;
+  addRtxSSRC(primarySsrc: number, rtxSsrc: number, cname?: string): void;
+  removeRtxSSRC(primarySsrc: number): void;
   replaceSSRC(oldSsrc: number, ssrc: number, name?: string, msid?: string, trackID?: string): void;
   hasSSRC(ssrc: number): boolean;
   getSSRCs(): number[];
@@ -77,6 +79,8 @@ export interface Video {
   removeFormat(fmt: string): void;
   addSSRC(ssrc: number, name?: string, msid?: string, trackID?: string): void;
   removeSSRC(ssrc: number): void;
+  addRtxSSRC(primarySsrc: number, rtxSsrc: number, cname?: string): void;
+  removeRtxSSRC(primarySsrc: number): void;
   replaceSSRC(oldSsrc: number, ssrc: number, name?: string, msid?: string, trackID?: string): void;
   hasSSRC(ssrc: number): boolean;
   getSSRCs(): number[];

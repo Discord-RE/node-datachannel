@@ -31,6 +31,8 @@ public:
   void removeFormat(const Napi::CallbackInfo &info);
   void addSSRC(const Napi::CallbackInfo &info);
   void removeSSRC(const Napi::CallbackInfo &info);
+  void addRtxSSRC(const Napi::CallbackInfo &info);
+  void removeRtxSSRC(const Napi::CallbackInfo &info);
   void replaceSSRC(const Napi::CallbackInfo &info);
   Napi::Value hasSSRC(const Napi::CallbackInfo &info);
   Napi::Value getSSRCs(const Napi::CallbackInfo &info);

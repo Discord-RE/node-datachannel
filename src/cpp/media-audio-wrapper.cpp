@@ -21,6 +21,8 @@ Napi::Object AudioWrapper::Init(Napi::Env env, Napi::Object exports)
                                         InstanceMethod("removeFormat", &AudioWrapper::removeFormat),
                                         InstanceMethod("addSSRC", &AudioWrapper::addSSRC),
                                         InstanceMethod("removeSSRC", &AudioWrapper::removeSSRC),
+                                        InstanceMethod("addRtxSSRC", &AudioWrapper::addRtxSSRC),
+                                        InstanceMethod("removeRtxSSRC", &AudioWrapper::removeRtxSSRC),
                                         InstanceMethod("replaceSSRC", &AudioWrapper::replaceSSRC),
                                         InstanceMethod("hasSSRC", &AudioWrapper::hasSSRC),
                                         InstanceMethod("getSSRCs", &AudioWrapper::getSSRCs),
@@ -276,6 +278,50 @@ void AudioWrapper::removeSSRC(const Napi::CallbackInfo &info)
   uint32_t ssrc = static_cast<uint32_t>(info[0].As<Napi::Number>().ToNumber());
 
   mAudioPtr->removeSSRC(ssrc);
+}
+
+void AudioWrapper::addRtxSSRC(const Napi::CallbackInfo &info)
+{
+  Napi::Env env = info.Env();
+  int length = info.Length();
+
+  if (length < 2 || !info[0].IsNumber() || !info[1].IsNumber())
+  {
+    Napi::TypeError::New(env, "We expect (Number, Number, String[optional]) as param").ThrowAsJavaScriptException();
+    return;
+  }
+
+  uint32_t primarySsrc = static_cast<uint32_t>(info[0].As<Napi::Number>().ToNumber());
+  uint32_t rtxSsrc = static_cast<uint32_t>(info[1].As<Napi::Number>().ToNumber());
+  std::optional<std::string> cname = std::nullopt;
+
+  if (length > 2)
+  {
+    if (!info[2].IsString())
+    {
+      Napi::TypeError::New(env, "cname as String expected").ThrowAsJavaScriptException();
+      return;
+    }
+    cname = info[2].As<Napi::String>().ToString();
+  }
+
+  mAudioPtr->addRtxSSRC(primarySsrc, rtxSsrc, cname);
+}
+
+void AudioWrapper::removeRtxSSRC(const Napi::CallbackInfo &info)
+{
+  Napi::Env env = info.Env();
+  int length = info.Length();
+
+  if (length < 1 || !info[0].IsNumber())
+  {
+    Napi::TypeError::New(env, "We expect (Number) as param").ThrowAsJavaScriptException();
+    return;
+  }
+
+  uint32_t primarySsrc = static_cast<uint32_t>(info[0].As<Napi::Number>().ToNumber());
+
+  mAudioPtr->removeRtxSSRC(primarySsrc);
 }
 
 void AudioWrapper::replaceSSRC(const Napi::CallbackInfo &info)
