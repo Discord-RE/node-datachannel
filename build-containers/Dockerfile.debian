@@ -1,4 +1,4 @@
-ARG version=trixie
+ARG version=bookworm
 ARG node_version=24
 
 # Accept build args
@@ -6,14 +6,14 @@ ARG gcc_install
 
 FROM node:${node_version}-${version}
 
-RUN echo "deb https://deb.debian.org/debian trixie-backports main" >> /etc/apt/sources.list && \
+RUN echo "deb https://deb.debian.org/debian bookworm-backports main" >> /etc/apt/sources.list && \
     apt update && \
     apt install -y --no-install-recommends \
         build-essential \
         libssl-dev \
         ninja-build \
         ${gcc_install} && \
-    apt install -y --no-install-recommends -t trixie-backports cmake && \
+    apt install -y --no-install-recommends -t bookworm-backports cmake && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 

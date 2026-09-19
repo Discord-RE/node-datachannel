@@ -18,7 +18,7 @@ jobs:
           # Platform-specific baselines
           - platform: alpine
             triple: alpine-linux-musl
-            version: 3.24
+            version: 3.15
             libc: musl
             gcc_install: clang lld
             gcc: clang
@@ -26,7 +26,7 @@ jobs:
             libc_suffix: musl
           - platform: debian
             triple: linux-gnu
-            version: trixie
+            version: bookworm
             libc_suffix: gnu
 
           # Arch-specific baselines
