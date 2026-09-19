@@ -36,9 +36,7 @@ export function getLibraryVersion(): string {
   return nodeDataChannel.getLibraryVersion();
 }
 
-export interface Audio {
-  addAudioCodec(payloadType: number, codec: string, profile?: string): void;
-  addOpusCodec(payloadType: number, profile?: string): string;
+export interface MediaDescriptor {
   direction(): Direction;
   generateSdp(eol: string, addr: string, port: number): string;
   mid(): string;
@@ -60,37 +58,22 @@ export interface Audio {
   addRTPMap(): void;
   parseSdpLine(line: string): void;
 }
+
+export interface Audio extends MediaDescriptor {
+  addAudioCodec(payloadType: number, codec: string, profile?: string): void;
+  addOpusCodec(payloadType: number, profile?: string): string;
+}
 export const Audio: {
   new (mid: string, dir: Direction): Audio;
 } = nodeDataChannel.Audio;
 
-export interface Video {
+export interface Video extends MediaDescriptor {
   addVideoCodec(payloadType: number, codec: string, profile?: string): void;
   addH264Codec(payloadType: number, profile?: string): void;
   addH265Codec(payloadType: number): void;
   addVP8Codec(payloadType: number): void;
   addVP9Codec(payloadType: number): void;
   addAV1Codec(payloadType: number): void;
-  direction(): Direction;
-  generateSdp(eol: string, addr: string, port: number): string;
-  mid(): string;
-  setDirection(dir: Direction): void;
-  description(): string;
-  removeFormat(fmt: string): void;
-  addSSRC(ssrc: number, name?: string, msid?: string, trackID?: string): void;
-  removeSSRC(ssrc: number): void;
-  addRtxSSRC(primarySsrc: number, rtxSsrc: number, cname?: string): void;
-  removeRtxSSRC(primarySsrc: number): void;
-  replaceSSRC(oldSsrc: number, ssrc: number, name?: string, msid?: string, trackID?: string): void;
-  hasSSRC(ssrc: number): boolean;
-  getSSRCs(): number[];
-  getCNameForSsrc(ssrc: number): string;
-  setBitrate(bitRate: number): void;
-  getBitrate(): number;
-  hasPayloadType(payloadType: number): boolean;
-  addRTXCodec(payloadType: number, originalPayloadType: number, clockRate: number): void;
-  addRTPMap(): void;
-  parseSdpLine(line: string): void;
 }
 export const Video: {
   new (mid: string, dir: Direction): Video;
@@ -152,7 +135,7 @@ export interface PeerConnection {
   remoteFingerprint(): CertificateFingerprint;
   addRemoteCandidate(candidate: string, mid: string): void;
   createDataChannel(label: string, config?: DataChannelInitConfig): DataChannel;
-  addTrack(media: Video | Audio): Track;
+  addTrack(media: MediaDescriptor): Track;
   hasMedia(): boolean;
   state(): RTCPeerConnectionState;
   iceState(): RTCIceConnectionState;
